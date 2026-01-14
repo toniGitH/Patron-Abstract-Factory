@@ -8,28 +8,32 @@
     use App\Client\TiendaDeMuebles;
 
     // CASO 1: un cliente compra un conjunto completo de estilo clásico
-
-    // 1. Selección del estilo de mobiliario: esto lo determina el comprador
+    // 1. Selección del estilo (fabrica) de mobiliario: esto lo determina el comprador
     $fabricaSeleccionada = new FabricaClasica();
-    // 2. La lógica de nuestra aplicación (TiendaDeRopa) va a actuar sin concocer las fabricas concretas
+    // 2. La lógica de nuestra aplicación (TiendaDeMuebles) va a actuar sin conocer las fábricas concretas
     $tienda = new TiendaDeMuebles($fabricaSeleccionada); 
     // 3. Mostrar resultados
-    $tienda->venderConjunto();
+    echo $tienda->venderConjuntoACliente();
 
     // CASO 2: un cliente compra sólo una lámpara de estilo vintage
+    // 1. Selección del estilo (fabrica) de mobiliario: esto lo determina el comprador
     $fabricaSeleccionada = new FabricaVintage();
-    $tienda = new TiendaDeMuebles($fabricaSeleccionada); 
-    $tienda->venderLampara();
+    // 2. La lógica de nuestra aplicación (TiendaDeMuebles) va a actuar sin conocer las fábricas concretas
+    $tienda = new TiendaDeMuebles($fabricaSeleccionada);
+    // 3. Mostrar resultados
+    echo $tienda->venderMuebleACliente('lampara');
 
     // CASO 3: un cliente compra una mesa vintage, dos sillas clásicas y una lámpara moderna
+    // 1. Para la mesa vintage
     $fabricaSeleccionada = new FabricaVintage();
     $tienda = new TiendaDeMuebles($fabricaSeleccionada); 
-    $tienda->venderMesa();
+    echo $tienda->venderMuebleACliente('mesa');
+    // 2. Para las 2 sillas clásicas
     $fabricaSeleccionada = new FabricaClasica();
     $tienda = new TiendaDeMuebles($fabricaSeleccionada); 
-    $tienda->venderSilla();
-    $tienda->venderSilla();    
-    // AQUI HAY QUE MIRAR DE INCLUIR UNA SEGUNDA SILLA
+    echo $tienda->venderMuebleACliente('silla');
+    echo $tienda->venderMuebleACliente('silla');
+    // 3. Para la lámpara moderna
     $fabricaSeleccionada = new FabricaModerna();
     $tienda = new TiendaDeMuebles($fabricaSeleccionada); 
-    $tienda->venderLampara();
+    echo $tienda->venderMuebleACliente('lampara');

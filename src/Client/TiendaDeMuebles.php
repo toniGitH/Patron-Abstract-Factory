@@ -3,74 +3,65 @@
     namespace App\Client;
 
     use App\Contracts\Fabrica;
-    use App\Contracts\Mesa;
-    use App\Contracts\Silla;
-    use App\Contracts\Lampara;
     
     class TiendaDeMuebles {
 
         private Fabrica $fabrica;
-        private Silla $silla;
-        private Mesa $mesa;
-        private Lampara $lampara;
 
         public function __construct(Fabrica $fabrica) {
             $this->fabrica = $fabrica;
         }
 
-        public function pedirConjuntoAFabrica() {
-            $this->silla = $this->fabrica->fabricarSilla();
-            $this->mesa = $this->fabrica->fabricarMesa();
-            $this->lampara = $this->fabrica->fabricarLampara();
+        // Método genérico para pedir un mueble individual
+        public function pedirMuebleAFabrica(string $tipo): object {
+            $metodo = 'fabricar' . ucfirst($tipo);
+            $mueble = $this->fabrica->$metodo();
+            return $mueble;
         }
 
-        public function venderConjunto() {
+        // Método para pedir un conjunto completo
+        public function pedirConjuntoAFabrica(): array {
+            return [
+                'silla' => $this->pedirMuebleAFabrica('silla'),
+                'mesa' => $this->pedirMuebleAFabrica('mesa'),
+                'lampara' => $this->pedirMuebleAFabrica('lampara')
+            ];
+        }
+
+        // Método genérico para vender un mueble individual
+        public function venderMuebleACliente(string $tipo): string {
+            $mueble = $this->pedirMuebleAFabrica($tipo);
             $estilo = $this->fabrica->getEstilo();
-            echo "\n";
-            echo "Vendido conjunto de muebles de estilo $estilo\n";
-            echo "---------------------\n";
-            $this->pedirConjuntoAFabrica();
-            echo $this->silla->desplegar();
-            echo $this->mesa->desplegar();
-            echo $this->lampara->encender();
+            
+            $output = "\n";
+            $output .= "Vendida " . $tipo . " de estilo $estilo\n";
+            $output .= "---------------------\n";
+            $output .= $this->mostrarMueble($mueble, $tipo);
+            
+            return $output;
         }
 
-        public function pedirSillaAFabrica() {
-            $this->silla = $this->fabrica->fabricarSilla();
-        }
-
-        public function venderSilla() {
+        // Método para vender conjunto
+        public function venderConjuntoACliente(): string {
+            $conjunto = $this->pedirConjuntoAFabrica();
             $estilo = $this->fabrica->getEstilo();
-            echo "\n";
-            echo "Vendida silla de estilo $estilo\n";
-            echo "---------------------\n";
-            $this->pedirSillaAFabrica();
-            echo $this->silla->desplegar();
+            
+            $output = "\n";
+            $output .= "Vendido conjunto de muebles de estilo $estilo\n";
+            $output .= "---------------------\n";
+            
+            foreach ($conjunto as $tipo => $mueble) {
+                $output .= $this->mostrarMueble($mueble, $tipo);
+            }
+            
+            return $output;
         }
 
-        public function pedirMesaAFabrica() {
-            $this->mesa = $this->fabrica->fabricarMesa();
+        // Método auxiliar para mostrar un mueble
+        private function mostrarMueble(object $mueble, string $tipo): string {
+            if ($tipo === 'lampara') {
+                return $mueble->encender();
+            }
+            return $mueble->desplegar();
         }
-
-        public function venderMesa() {
-            $estilo = $this->fabrica->getEstilo();
-            echo "\n";
-            echo "Vendida mesa de estilo $estilo\n";
-            echo "---------------------\n";
-            $this->pedirMesaAFabrica();
-            echo $this->mesa->desplegar();
-        }
-
-        public function pedirLamparaAFabrica() {
-            $this->lampara = $this->fabrica->fabricarLampara();
-        }
-
-        public function venderLampara() {
-            $estilo = $this->fabrica->getEstilo();
-            echo "\n";
-            echo "Vendida lampara de estilo $estilo\n";
-            echo "---------------------\n";
-            $this->pedirLamparaAFabrica();
-            echo $this->lampara->encender();
-        }
-    }
+    }   
