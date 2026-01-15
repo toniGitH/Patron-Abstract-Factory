@@ -18,6 +18,7 @@ Repositorio creado para explicar el patrón **Abstract Factory** y su implementa
         <li>👨🏼‍🔧 <a href="#-aplicando-la-definición-a-un-caso-práctico-tienda-de-muebles">Aplicando la definición a un caso práctico: Tienda de Muebles</a></li>
         <li>🛂 <a href="#-elementos-obligatorios-que-debe-tener-un-patrón-abstract-factory">Elementos obligatorios que debe tener un patrón Abstract Factory</a></li>
         <li>🎯 <a href="#-qué-objetivos-se-buscan-al-aplicar-el-patrón-abstract-factory">¿Qué objetivos se buscan al aplicar el patrón Abstract Factory?</a></li>
+        <li>🛠️ <a href="#-aplicabilidad-del-patrón-abstract-factory">Aplicabilidad del patrón Abstract Factory</a></li>
       </ul>
     </li>
     <li>🧪 <a href="#-ejemplo-de-implementación-tienda-de-muebles">Ejemplo de implementación: Tienda de Muebles</a>
@@ -160,6 +161,18 @@ El código de creación de objetos se concentra en un solo lugar (las fábricas)
 
 <br>
 
+### 🛠️ Aplicabilidad del patrón Abstract Factory
+
+El cumplimiento de los objetivos anteriores hacen que este patrón sea **especialmente útil** cuando tengas un **cliente (clase, módulo, lógica) que necesite de varios objetos (productos concretos) relacionados para funcionar** y quieras poder:
+
+  - **separar la creación de esos objetos, de la lógica del cliente (bajo acoplamiento)**: en el ejemplo de la tienda de muebles, podrías incluir toda la lógica de venta y creación de muebles dentro de la clase `TiendaDeMuebles`, pero eso supondría un código muy acoplado a los detalles de creación de los muebles, y por tanto, poco escalable y difícil de mantener.
+
+  - **garantizar coherencia entre productos de la misma familia**: en el ejemplo de la tienda de muebles, el patrón garantiza que si el cliente quiere una silla, una mesa y una lámpara, todos del mismo estilo (por ejemplo, moderno), esto se cumpla gracias a que dispondremos de una fábrica concreta (`FabricaModerna`), que nos devolverá una silla moderna, una mesa moderna y una lámpara moderna.
+
+  - **permitir cambiar de familia sin modificar el cliente (extensibilidad/Open-Closed)**: si más tarde, otro cliente quiera un conjunto de muebles de estilo clásico, solo tendremos que crear/usar una nueva fábrica (`FabricaClasica`) y el cliente podrá pedir la creación de un conjunto de muebles de estilo clásico, sin tener que cambiar absolutamente nada del código del cliente (`TiendaDeMuebles`).
+
+<br>
+
 [🔝](#top)
 
 ---
@@ -291,13 +304,63 @@ require "vendor/autoload.php";
 
 ### 2. Ejecución
 
-Para ver el patrón en acción, ejecuta el script principal desde la terminal:
+Tienes dos alternativas para visualizar el resultado de la aplicación:
+- visualizando los resultados mediante el **navegador** (con XAMPP o con un servidor web local).
+- directamente desde la **terminal**, en texto plano, ejecutando el archivo principal, `main.php`.
+
+#### 🖥️ Para ejecutarlo mediante la Terminal:
+
+1. Abre la terminal y navega a la carpeta de tu proyecto, por ejemplo:
+
+```bash
+cd ~/Documentos/Proyectos/patrones/abstract-factory
+```
+
+2. Ejecuta, desde esa ubicación, el archivo main.php:
 
 ```bash
 php main.php
 ```
 
-Verás en la salida cómo la tienda crea muebles de diferentes estilos e incluso familias mixtas (si el código lo permite) o cómo gestiona las diferentes fábricas.
+#### 🌐 Para ejecutarlo mediante XAMPP:
+
+1. Mueve la carpeta del proyecto a la carpeta htdocs (o equivalente según la versión de XAMPP y sistema operativo que uses).
+2. Arranca XAMPP.
+3. Accede a index.php desde tu navegador (por ejemplo: http://localhost/patrones/abstract-factory/index.php)
+
+#### 🌐 Para ejecutarlo usando el servidor web interno de PHP
+
+PHP trae un servidor web ligero que sirve para desarrollo. No necesitas instalar Apache ni XAMPP.
+
+1. Abre la terminal y navega a la carpeta de tu proyecto:
+
+```bash
+cd ~/Documentos/.../patrones/abstract-factory
+```
+2. Dentro de esa ubicación, ejecuta:
+
+```bash
+php -S localhost:8000
+```
+
+>💡 No es obligatorio usar el puerto 8000, puedes usar el que desees, por ejemplo, el 8001.
+
+Con esto, lo que estás haciendo es crear un servidor web php (cuya carpeta raíz es la carpeta seleccionada), que está escuchando en el puerto 8000 (o en el que hayas elegido).
+
+>💡 Si quisieras, podrías crear simultáneamente tantos servidores como proyectos tengas en tu ordenador, siempre y cuando cada uno estuviera escuchando en un puerto diferente (8001, 8002, ...).
+
+3. Ahora, abre tu navegador y accede a http://localhost:8000
+
+Ya podrás visualizar el documento index.php con toda la información del ejemplo.
+
+>💡 No es necesario indicar `http://localhost:8000/index.php` porque el servidor va a buscar dentro de la carpeta raíz (en este caso, en Documentos/.../patrones/abstract-factory), un archivo index.php o index.html de forma automática. Si existe, lo sirve como página principal.
+>
+> Por eso, estas dos URLs funcionan igual:
+>
+> http://localhost:8000
+>
+> http://localhost:8000/index.php
+
 
 <br>
 
