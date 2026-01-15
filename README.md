@@ -18,7 +18,7 @@ Repositorio creado para explicar el patrón **Abstract Factory** y su implementa
         <li>👨🏼‍🔧 <a href="#-aplicando-la-definición-a-un-caso-práctico-tienda-de-muebles">Aplicando la definición a un caso práctico: Tienda de Muebles</a></li>
         <li>🛂 <a href="#-elementos-obligatorios-que-debe-tener-un-patrón-abstract-factory">Elementos obligatorios que debe tener un patrón Abstract Factory</a></li>
         <li>🎯 <a href="#-qué-objetivos-se-buscan-al-aplicar-el-patrón-abstract-factory">¿Qué objetivos se buscan al aplicar el patrón Abstract Factory?</a></li>
-        <li>🛠️ <a href="#-aplicabilidad-del-patrón-abstract-factory">Aplicabilidad del patrón Abstract Factory</a></li>
+        <li>👍🏼 <a href="#-aplicabilidad-del-patrón-abstract-factory">Aplicabilidad del patrón Abstract Factory</a></li>
       </ul>
     </li>
     <li>🧪 <a href="#-ejemplo-de-implementación-tienda-de-muebles">Ejemplo de implementación: Tienda de Muebles</a>
@@ -161,7 +161,7 @@ El código de creación de objetos se concentra en un solo lugar (las fábricas)
 
 <br>
 
-### 🛠️ Aplicabilidad del patrón Abstract Factory
+### 👍🏼 Aplicabilidad del patrón Abstract Factory
 
 El cumplimiento de los objetivos anteriores hacen que este patrón sea **especialmente útil** cuando tengas un **cliente (clase, módulo, lógica) que necesite de varios objetos (productos concretos) relacionados para funcionar** y quieras poder:
 
